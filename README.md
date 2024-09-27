@@ -1,27 +1,46 @@
-# Shattered Pixel Dungeon
+# Java Method Extraction and N-gram Model Analysis
 
-[Shattered Pixel Dungeon](https://shatteredpixel.com/shatteredpd/) is an open-source traditional roguelike dungeon crawler with randomized levels and enemies, and hundreds of items to collect and use. It's based on the [source code of Pixel Dungeon](https://github.com/00-Evan/pixel-dungeon-gradle), by [Watabou](https://www.watabou.ru).
+## Introduction
+In this project, I have developed a script to extract Java method definitions from a source code corpus and build an N-gram model to analyze the structural patterns of these methods. The N-gram model helps in identifying common code patterns and structures, which can be useful for tasks like code completion and style analysis.
 
-Shattered Pixel Dungeon currently compiles for Android, iOS, and Desktop platforms. You can find official releases of the game on:
+## Requirements
+To run this project, I have used the following software and libraries:
+- **Python 3.x**: Required for executing the script.
+- **Required Python Libraries**:
+  - `nltk` for natural language processing.
+  - `re` for regular expression operations.
+  - `collections` for handling frequency distributions.
 
-[![Get it on Google Play](https://shatteredpixel.com/assets/images/badges/gplay.png)](https://play.google.com/store/apps/details?id=com.shatteredpixel.shatteredpixeldungeon)
-[![Download on the App Store](https://shatteredpixel.com/assets/images/badges/appstore.png)](https://apps.apple.com/app/shattered-pixel-dungeon/id1563121109)
-[![Steam](https://shatteredpixel.com/assets/images/badges/steam.png)](https://store.steampowered.com/app/1769170/Shattered_Pixel_Dungeon/)<br>
-[![GOG.com](https://shatteredpixel.com/assets/images/badges/gog.png)](https://www.gog.com/game/shattered_pixel_dungeon)
-[![Itch.io](https://shatteredpixel.com/assets/images/badges/itch.png)](https://shattered-pixel.itch.io/shattered-pixel-dungeon)
-[![Github Releases](https://shatteredpixel.com/assets/images/badges/github.png)](https://github.com/00-Evan/shattered-pixel-dungeon/releases)
+You can install the necessary libraries using the following command:
 
-If you like this game, please consider [supporting me on Patreon](https://www.patreon.com/ShatteredPixel)!
+```bash
+pip install nltk
+```
 
-There is an official blog for this project at [ShatteredPixel.com](https://www.shatteredpixel.com/blog/).
+## Configuration and Execution
 
-The game also has a translation project hosted on [Transifex](https://www.transifex.com/shattered-pixel/shattered-pixel-dungeon/).
+### 1. Clone the Repository
 
-Note that **this repository does not accept pull requests!** The code here is provided in hopes that others may find it useful for their own projects, not to allow community contribution. Issue reports of all kinds (bug reports, feature requests, etc.) are welcome.
+### 2. Configure the Dataset
 
-If you'd like to work with the code, you can find the following guides in `/docs`:
-- [Compiling for Android.](docs/getting-started-android.md)
-    - **[If you plan to distribute on Google Play please read the end of this guide.](docs/getting-started-android.md#distributing-your-apk)**
-- [Compiling for desktop platforms.](docs/getting-started-desktop.md)
-- [Compiling for iOS.](docs/getting-started-ios.md)
-- [Recommended changes for making your own version.](docs/recommended-changes.md)
+### 3. Running the Script
+
+Navigate to the root directory of the project and execute the script using the following command:
+
+python ngram_model.py
+
+The script performs the following tasks:
+
+1. Extracts Java methods from the source files.
+2. Preprocesses the extracted methods by removing comments and whitespace.
+3. Tokenizes the methods and builds an N-gram model.
+4. Displays the top 10 most common N-grams.
+
+### 4. Sample Corpus
+
+I have included a sample corpus in the `core/src/main/java/com/shatteredpixel/shatteredpixeldungeon` directory. You can replace the existing files or add more Java files to this directory if you wish to use your own corpus.
+
+### 5. Output
+
+The script outputs the top 10 most common N-grams along with their frequencies. This output helps in understanding the most frequently used patterns and structures in the analyzed Java methods.
+
