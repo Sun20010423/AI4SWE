@@ -3,6 +3,10 @@ import re
 from nltk import ngrams, FreqDist
 from collections import Counter
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
 def extract_java_methods(file_path):
     """
     Extracts all methods from a Java file and returns a list of methods.
@@ -10,7 +14,11 @@ def extract_java_methods(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
+<<<<<<< HEAD
     # Improved regular expression to match various Java method definitions, including multi-line method signatures
+=======
+    # Improved regular expression to match various Java method definitions, including multi-line method signatures.
+>>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
     # method_pattern = re.compile(
     #     r'(public|private|protected|static|final|abstract|synchronized|native|strictfp)\s+[\w$<>\[\]]+\s+\w+\s*\([^)]*\)',
     #     re.MULTILINE
@@ -67,12 +75,16 @@ def collect_all_methods(root_dir):
                 all_methods.extend(text)
     print(f"Extracted {len(all_methods)} methods.")
     print("Preprocessing methods...")
+<<<<<<< HEAD
     cleaned_methods = preprocess_methods(all_methods)
     print("Building N-gram model...")
     all_tokens = []
     for method in cleaned_methods:
         tokens = tokenize_method(method)
         all_tokens.extend(tokens)
+=======
+    print("Building N-gram model...")
+>>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
     all_methods = Counter(all_methods)
     most_common_1000 = all_methods.most_common(2000)
     show_ng = most_common_1000[790:800]
@@ -99,7 +111,11 @@ def preprocess_methods(methods):
 
 def build_ngram_model(tokens, N):
     """
+<<<<<<< HEAD
     Build an N-gram model and return the N-gram frequency distribution.
+=======
+    Build an N-gram model and return the frequency distribution of N-grams.
+>>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
     """
     ngrams_list = list(ngrams(tokens, N))
     ngram_freq = FreqDist(ngrams_list)
@@ -110,7 +126,11 @@ def tokenize_method(method):
     """
     Split the method into tokens and return a list of tokens.
     """
+<<<<<<< HEAD
     # Use regular expressions for tokenization, simple handling, suitable for most Java code
+=======
+    # Use regular expressions for tokenization, a simple approach suitable for most Java code
+>>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
     tokens = re.findall(r'\b\w+\b', method)
     # tokens = method.split()
 
@@ -119,14 +139,22 @@ def tokenize_method(method):
 
 # def is_valid_java_dir(path):
 #     """
+<<<<<<< HEAD
 #     Determine whether the path is a valid directory containing Java files (excluding non-source directories).
+=======
+#     Determines if the path is a valid directory containing Java files (excluding non-source directories).
+>>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
 #     """
 #     exclude_dirs = ['docs', 'gradle', 'SPD-classes', 'build', 'bin', 'out', 'test']
 #     return not any(excluded in path for excluded in exclude_dirs)
 
 def is_valid_java_dir(path):
     """
+<<<<<<< HEAD
     Determine if the given path is not in the excluded non-source directories.
+=======
+    Determines if the given path is not in the excluded non-source directories.
+>>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
     """
     exclude_dirs = ['docs', 'gradle', 'SPD-classes', 'build', 'bin', 'out', 'test']
     # Construct a complete list of excluded paths based on the parent directory of the current path
