@@ -3,22 +3,15 @@ import re
 from nltk import ngrams, FreqDist
 from collections import Counter
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
 def extract_java_methods(file_path):
     """
-    Extracts all methods from a Java file and returns a list of methods.
+    从Java文件中提取所有方法的内容，返回方法的列表。
     """
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
-<<<<<<< HEAD
-    # Improved regular expression to match various Java method definitions, including multi-line method signatures
-=======
-    # Improved regular expression to match various Java method definitions, including multi-line method signatures.
->>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
+    # 改进的正则表达式，匹配各种Java方法的定义，包括多行方法签名
     # method_pattern = re.compile(
     #     r'(public|private|protected|static|final|abstract|synchronized|native|strictfp)\s+[\w$<>\[\]]+\s+\w+\s*\([^)]*\)',
     #     re.MULTILINE
@@ -26,24 +19,24 @@ def extract_java_methods(file_path):
 
     # method_pattern = re.compile(
     #     r'''
-    #     (?P<modifiers>(?:(?:public|private|protected|static|final|abstract|synchronized|native|strictfp)\s+)+)  # Match one or more modifiers
-    #     (?P<return_type>[\w$<>\[\]]+\s+)  # Match return type
-    #     (?P<method_name>\w+)  # Match method name
-    #     \s*  # Optional whitespace
-    #     \((?P<parameters>[^)]*)\)  # Match parameter list
+    #     (?P<modifiers>(?:(?:public|private|protected|static|final|abstract|synchronized|native|strictfp)\s+)+)  # 匹配一个或多个修饰符
+    #     (?P<return_type>[\w$<>\[\]]+\s+)  # 匹配返回类型
+    #     (?P<method_name>\w+)  # 匹配方法名
+    #     \s*  # 可选空白
+    #     \((?P<parameters>[^)]*)\)  # 匹配参数列表
     #     ''',
     #     re.VERBOSE
     # )
     # method_pattern = re.compile(r'''
-    #     (public\s+static\s+class\s+Effects\s+\{\s*    # Match the beginning of the Effects class
-    #     (?:                                           # Start non-capturing group
-    #         \s*                                       # Possible whitespace
-    #         public\s+static\s+final\s+String\s+       # Match public static final String
-    #         [A-Z_][A-Z0-9_]*\s*=\s*                   # Match variable name and equals sign
-    #         "[^"]*";\s*                               # Match string literal and semicolon
-    #     )*                                            # Repeat zero or more times
-    #     \s*                                           # Possible whitespace
-    #     \})                                           # Match the end of the Effects class
+    #     (public\s+static\s+class\s+Effects\s+\{\s*    # 匹配 Effects 类的开始
+    #     (?:                                           # 开始非捕获组
+    #         \s*                                       # 可能的空格
+    #         public\s+static\s+final\s+String\s+       # 匹配 public static final String
+    #         [A-Z_][A-Z0-9_]*\s*=\s*                   # 匹配变量名和等号
+    #         "[^"]*";\s*                               # 匹配字符串字面量和分号
+    #     )*                                            # 重复零次或多次
+    #     \s*                                           # 可能的空格
+    #     \})                                           # 匹配 Effects 类的结束
     # ''', re.VERBOSE)
     # content = method_pattern.findall(content)
     return content
@@ -63,7 +56,7 @@ def analyze_ngrams(text, n=2):
 
 def collect_all_methods(root_dir):
     """
-    Recursively extract all methods from Java files in the specified root directory.
+    从指定的根目录中递归提取所有Java文件中的方法。
     """
     all_methods = []
     for subdir, _, files in os.walk(root_dir):
@@ -73,23 +66,19 @@ def collect_all_methods(root_dir):
                 methods = extract_java_methods(file_path)
                 text = analyze_ngrams(methods, n=6)
                 all_methods.extend(text)
-    print(f"Extracted {len(all_methods)} methods.")
-    print("Preprocessing methods...")
-<<<<<<< HEAD
+    print(f"共提取了 {len(all_methods)} 个方法。")
+    print("预处理方法...")
     cleaned_methods = preprocess_methods(all_methods)
-    print("Building N-gram model...")
+    print("构建N-gram模型...")
     all_tokens = []
     for method in cleaned_methods:
         tokens = tokenize_method(method)
         all_tokens.extend(tokens)
-=======
-    print("Building N-gram model...")
->>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
     all_methods = Counter(all_methods)
     most_common_1000 = all_methods.most_common(2000)
     show_ng = most_common_1000[790:800]
     print(f"Top 10 n-grams: {show_ng}")
-    print("Displaying part of the N-gram model...")
+    print("展示部分N-gram模型...")
     for ngram, freq in show_ng:
         print(f"{[ngram]} : {freq}")
     exit()
@@ -98,24 +87,20 @@ def collect_all_methods(root_dir):
 
 def preprocess_methods(methods):
     """
-    Preprocess the list of methods by removing comments, empty lines, and irrelevant information.
+    对方法列表进行预处理，去除注释、空行等无关信息。
     """
     cleaned_methods = []
     for method in methods:
-        # Remove comments and empty lines
-        method = re.sub(r'//.*|/\*[\s\S]*?\*/', '', method)  # Remove single-line and multi-line comments
-        method = re.sub(r'\s+', ' ', method).strip()  # Remove excess whitespace
+        # 去除注释和空行
+        method = re.sub(r'//.*|/\*[\s\S]*?\*/', '', method)  # 去除单行和多行注释
+        method = re.sub(r'\s+', ' ', method).strip()  # 去除多余空白字符
         cleaned_methods.append(method)
     return cleaned_methods
 
 
 def build_ngram_model(tokens, N):
     """
-<<<<<<< HEAD
-    Build an N-gram model and return the N-gram frequency distribution.
-=======
-    Build an N-gram model and return the frequency distribution of N-grams.
->>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
+    构建N-gram模型，返回ngram频率分布。
     """
     ngrams_list = list(ngrams(tokens, N))
     ngram_freq = FreqDist(ngrams_list)
@@ -124,13 +109,9 @@ def build_ngram_model(tokens, N):
 
 def tokenize_method(method):
     """
-    Split the method into tokens and return a list of tokens.
+    将方法拆分为标记（tokens），返回一个标记列表。
     """
-<<<<<<< HEAD
-    # Use regular expressions for tokenization, simple handling, suitable for most Java code
-=======
-    # Use regular expressions for tokenization, a simple approach suitable for most Java code
->>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
+    # 使用正则表达式进行分词，简单处理，适用于大多数Java代码
     tokens = re.findall(r'\b\w+\b', method)
     # tokens = method.split()
 
@@ -139,65 +120,57 @@ def tokenize_method(method):
 
 # def is_valid_java_dir(path):
 #     """
-<<<<<<< HEAD
-#     Determine whether the path is a valid directory containing Java files (excluding non-source directories).
-=======
-#     Determines if the path is a valid directory containing Java files (excluding non-source directories).
->>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
+#     判断是否为包含Java文件的有效目录（排除非源码目录）
 #     """
 #     exclude_dirs = ['docs', 'gradle', 'SPD-classes', 'build', 'bin', 'out', 'test']
 #     return not any(excluded in path for excluded in exclude_dirs)
 
 def is_valid_java_dir(path):
     """
-<<<<<<< HEAD
-    Determine if the given path is not in the excluded non-source directories.
-=======
-    Determines if the given path is not in the excluded non-source directories.
->>>>>>> 5b98f321b50aa3ca86b2aa2d668a44dc1beb3d11
+    判断给定的路径是否不包含在非源码目录中
     """
     exclude_dirs = ['docs', 'gradle', 'SPD-classes', 'build', 'bin', 'out', 'test']
-    # Construct a complete list of excluded paths based on the parent directory of the current path
+    # 构造一个完整的排除路径列表，以当前路径的父目录为基准
     parent_dir = os.path.dirname(path)
     excluded_paths = [os.path.join(parent_dir, excluded) for excluded in exclude_dirs]
-    # Check if the given path starts with any of the excluded paths
+    # 检查给定路径是否以任何一个排除路径为前缀
     return not any(path.startswith(excluded) for excluded in excluded_paths)
 
 
 def main():
-    # Project root directory
-    project_root = 'core/src/main/java/com/shatteredpixel/shatteredpixeldungeon'  # Use relative path to recursively traverse the entire project
+    # 项目根目录
+    project_root = 'core/src/main/java/com/shatteredpixel/shatteredpixeldungeon'  # 使用相对路径来递归整个项目
 
-    # Step 1: Extract all methods
-    print("Extracting Java methods...")
+    # 第一步：提取所有方法
+    print("提取Java方法...")
     all_methods = []
     for subdir, _, _ in os.walk(project_root):
         if is_valid_java_dir(subdir):
             methods = collect_all_methods(subdir)
             all_methods.extend(methods)
 
-    print(f"Extracted {len(all_methods)} methods.")
+    print(f"共提取了 {len(all_methods)} 个方法。")
     cleaned_methods = []
-    # Step 2: Preprocess methods
-    print("Preprocessing methods...")
+    # 第二步：预处理
+    print("预处理方法...")
     for methods in all_methods:
         cleaned = preprocess_methods(methods)
         cleaned_methods.append(cleaned)
 
-    # Step 3: Build N-gram model
-    print("Building N-gram model...")
+    # 第三步：构建N-gram模型
+    print("构建N-gram模型...")
     all_tokens = []
     for method in cleaned_methods:
         tokens = tokenize_method(method)
         all_tokens.extend(tokens)
 
-    # Build a trigram model
+    # 构建三元模型
     n = 3
     ngram_model = build_ngram_model(all_tokens, n)
     print(f"Top 10 n-grams: {ngram_model.most_common(10)}")
 
-    # Step 4: Display part of the N-gram model
-    print("Displaying part of the N-gram model...")
+    # 第四步：示例展示
+    print("展示部分N-gram模型...")
     for ngram, freq in ngram_model.most_common(10):
         print(f"{ngram} : {freq}")
 
